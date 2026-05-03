@@ -38,7 +38,8 @@ async def main() -> None:
                 await page.wait_for_timeout(500)
                 
                 # Export the page content to a PDF file and close the browser
-                await page.pdf(path=f'output/{company}_{report_type}_{date}.pdf', format="A4", print_background=True)
+                await page.pdf(path=f'output/{company}_{report_type}_{date}.pdf',
+                               format="A4", print_background=True)
             finally:
                 await browser.close()   
         print(f'10-K report for {company} is saved.')    
@@ -79,8 +80,7 @@ async def main() -> None:
 
 
     # cycling through the dictionary companies_cik_dict to extract CIK for each company,
-    # sending corresponding request to SEC API,
-
+    # sending corresponding request to SEC API:
     for company in companies_cik_dict:
         cik = companies_cik_dict[company]
         filing_history = requests.get(f'https://data.sec.gov/submissions/CIK{cik}.json',
